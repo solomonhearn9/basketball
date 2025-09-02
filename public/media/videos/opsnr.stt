@@ -1,0 +1,2 @@
+Bitrate	AVGPsnr	GLBPsnr	AVPsnrP	GLPsnrP	VPXSSIM	VPSSIMP	FASTSIM	PSNRHVS	WstPsnr	WstSsim	WstFast	WstHVS	AVPsnrY	APsnrCb	APsnrCr	  Block	WstBlck	Consist	WstCons	    Time	RcErr	AbsErr	APsnr611
+1010.97	 43.742	 42.816	 43.188	 42.420	 80.316	 80.183	 10.822	 40.193	 36.288	  0.875	  6.193	 32.383	 42.498	 49.014	 49.026	  1.146	  2.783	 31.422	  3.207	   55238	   1.10	   1.10	 44.129
