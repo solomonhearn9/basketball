@@ -11,7 +11,7 @@ interface Player {
 }
 
 const MediaGallery: React.FC = () => {
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
 
   // Player data showcasing athletes the trainer has worked with
   const players: Player[] = [
@@ -44,12 +44,16 @@ const MediaGallery: React.FC = () => {
     }
   ];
 
-  const openPlayerModal = (player: Player) => {
-    setSelectedPlayer(player);
-  };
-
-  const closePlayerModal = () => {
-    setSelectedPlayer(null);
+  const toggleCardFlip = (playerId: string) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(playerId)) {
+        newSet.delete(playerId);
+      } else {
+        newSet.add(playerId);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -61,150 +65,133 @@ const MediaGallery: React.FC = () => {
             Training
             <span className="text-basketball-orange"> Gallery</span>
           </h2>
-          <p className="text-lg text-gray-600 font-lato max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 font-lato max-w-2xl mx-auto animate-slide-up animate-stagger-1">
             Meet the talented athletes who have trained with us and achieved their goals.
           </p>
         </div>
 
         {/* Player Profile Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {players.map((player, index) => (
-            <div
-              key={player.id}
-              className="group cursor-pointer animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => openPlayerModal(player)}
-            >
-              <div className="relative overflow-hidden rounded-xl shadow-md group-hover:shadow-xl transition-all duration-300 bg-white">
-                {/* Player Photo */}
-                <div className="aspect-[3/4] bg-gray-200 relative">
-                  <img
-                    src={player.photo}
-                    alt={player.name}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    onError={(e) => {
-                      // Fallback for broken images
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      if (target.parentElement) {
-                        target.parentElement.innerHTML = `
-                          <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
-                            <div class="text-center">
-                              <div class="w-16 h-16 bg-basketball-orange rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <span class="text-2xl">🏀</span>
-                              </div>
-                              <p class="text-sm text-gray-600">${player.name}</p>
+          {players.map((player, index) => {
+            const isFlipped = flippedCards.has(player.id);
+            
+            return (
+              <div
+                key={player.id}
+                className="group cursor-pointer animate-scale-in"
+                style={{ animationDelay: `${index * 0.15}s` }}
+                onClick={() => toggleCardFlip(player.id)}
+              >
+                <div className={`flip-card w-full h-[500px] ${isFlipped ? 'flipped' : ''}`}>
+                  <div className="flip-card-inner">
+                    {/* Front of Card */}
+                    <div className="flip-card-front">
+                    <div className="relative overflow-hidden rounded-xl shadow-md group-hover:shadow-xl transition-all duration-500 bg-white transform group-hover:-translate-y-2 h-full flex flex-col">
+                      {/* Player Photo */}
+                      <div className="flex-1 bg-gray-200 relative overflow-hidden">
+                        <img
+                          src={player.photo}
+                          alt={player.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          onError={(e) => {
+                            // Fallback for broken images
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            if (target.parentElement) {
+                              target.parentElement.innerHTML = `
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
+                                  <div class="text-center">
+                                    <div class="w-16 h-16 bg-basketball-orange rounded-full mx-auto mb-2 flex items-center justify-center">
+                                      <span class="text-2xl">🏀</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">${player.name}</p>
+                                  </div>
+                                </div>
+                              `;
+                            }
+                          }}
+                        />
+                        
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                              <svg className="w-8 h-8 text-basketball-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
                             </div>
                           </div>
-                        `;
-                      }
-                    }}
-                  />
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                        <svg className="w-8 h-8 text-basketball-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        </div>
+                      </div>
+
+                      {/* Player Name */}
+                      <div className="p-4 text-center">
+                        <h3 className="text-xl font-bold font-inter text-black">
+                          {player.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 mt-1">Click to view bio</p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Position Badge */}
-                  <div className="absolute top-4 left-4">
-                    <div className="px-3 py-1 bg-basketball-orange text-white text-xs font-semibold rounded-full">
-                      {player.position}
+                    {/* Back of Card - Bio */}
+                    <div className="flip-card-back">
+                    <div className="relative overflow-hidden rounded-xl shadow-md bg-white h-full">
+                      <div className="p-6 h-full flex flex-col">
+                        {/* Header */}
+                        <div className="mb-4">
+                          <h3 className="text-2xl font-bold font-inter text-black mb-2">
+                            {player.name}
+                          </h3>
+                          <div className="w-12 h-1 bg-basketball-orange rounded-full"></div>
+                        </div>
+                        
+                        {/* Bio Section */}
+                        <div className="mb-6 flex-1">
+                          <h4 className="text-lg font-semibold font-inter text-black mb-3">About</h4>
+                          <p className="text-gray-600 font-lato leading-relaxed text-sm">
+                            {player.bio}
+                          </p>
+                        </div>
+                        
+                        {/* Training Focus */}
+                        <div className="mb-6">
+                          <h4 className="text-lg font-semibold font-inter text-black mb-3">Training Focus</h4>
+                          <p className="text-gray-600 font-lato text-sm">
+                            {player.trainingFocus}
+                          </p>
+                        </div>
+                        
+                        {/* Achievements */}
+                        <div className="mb-4">
+                          <h4 className="text-lg font-semibold font-inter text-black mb-3">Achievements</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {player.achievements.map((achievement, idx) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                              >
+                                {achievement}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Flip back indicator */}
+                        <div className="text-center mt-auto">
+                          <p className="text-xs text-gray-400">Click to flip back</p>
+                        </div>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
-
-                {/* Player Name */}
-                <div className="p-4 text-center">
-                  <h3 className="text-xl font-bold font-inter text-black">
-                    {player.name}
-                  </h3>
-                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Player Bio Modal */}
-        {selectedPlayer && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
-            onClick={closePlayerModal}
-          >
-            <div className="relative max-w-4xl max-h-full">
-              {/* Close button */}
-              <button
-                onClick={closePlayerModal}
-                className="absolute -top-12 right-0 text-white text-4xl hover:text-basketball-orange transition-colors duration-300"
-              >
-                ×
-              </button>
 
-              {/* Player Bio Content */}
-              <div className="bg-white rounded-2xl overflow-hidden">
-                <div className="flex flex-col lg:flex-row">
-                  {/* Player Photo */}
-                  <div className="lg:w-1/2">
-                    <img
-                      src={selectedPlayer.photo}
-                      alt={selectedPlayer.name}
-                      className="w-full h-80 lg:h-full object-cover"
-                    />
-                  </div>
-                  
-                  {/* Player Info */}
-                  <div className="lg:w-1/2 p-8">
-                    <div className="mb-6">
-                      <h3 className="text-3xl font-bold font-inter text-black mb-2">
-                        {selectedPlayer.name}
-                      </h3>
-                      <div className="inline-block px-4 py-2 bg-basketball-orange text-white text-sm font-semibold rounded-full mb-4">
-                        {selectedPlayer.position}
-                      </div>
-                    </div>
-                    
-                    {/* Bio */}
-                    <div className="mb-6">
-                      <h4 className="text-lg font-bold font-inter text-black mb-3">About</h4>
-                      <p className="text-gray-600 font-lato leading-relaxed">
-                        {selectedPlayer.bio}
-                      </p>
-                    </div>
-                    
-                    {/* Training Focus */}
-                    <div className="mb-6">
-                      <h4 className="text-lg font-bold font-inter text-black mb-3">Training Focus</h4>
-                      <p className="text-gray-600 font-lato">
-                        {selectedPlayer.trainingFocus}
-                      </p>
-                    </div>
-                    
-                    {/* Achievements */}
-                    <div>
-                      <h4 className="text-lg font-bold font-inter text-black mb-3">Achievements</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedPlayer.achievements.map((achievement, idx) => (
-                          <span
-                            key={idx}
-                            className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                          >
-                            {achievement}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

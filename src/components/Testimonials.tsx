@@ -111,13 +111,12 @@ const Testimonials: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold font-inter text-basketball-orange mb-4">
             Trusted by Players
           </h2>
-
         </div>
 
         {/* Testimonials Carousel */}
         <div className="relative max-w-4xl mx-auto">
           {/* Main Testimonial */}
-          <div className="bg-light-gray rounded-xl p-6 md:p-8 text-center animate-fade-in">
+          <div className="bg-light-gray rounded-xl p-6 md:p-8 text-center animate-scale-in">
             <div className="mb-8">
               {/* Rating */}
               <div className="flex justify-center mb-4">
@@ -206,19 +205,19 @@ const Testimonials: React.FC = () => {
 
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
-          <div className="text-center animate-slide-up">
+          <div className="text-center animate-scale-in animate-stagger-1 hover:scale-105 transition-transform duration-300">
             <div className="text-4xl font-bold text-basketball-orange mb-2">98%</div>
             <div className="text-gray-600 font-lato">Player Satisfaction</div>
           </div>
-          <div className="text-center animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <div className="text-center animate-scale-in animate-stagger-2 hover:scale-105 transition-transform duration-300">
             <div className="text-4xl font-bold text-basketball-orange mb-2">85%</div>
             <div className="text-gray-600 font-lato">Improved Performance</div>
           </div>
-          <div className="text-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <div className="text-center animate-scale-in animate-stagger-3 hover:scale-105 transition-transform duration-300">
             <div className="text-4xl font-bold text-basketball-orange mb-2">92%</div>
             <div className="text-gray-600 font-lato">College Placement</div>
           </div>
-          <div className="text-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <div className="text-center animate-scale-in animate-stagger-4 hover:scale-105 transition-transform duration-300">
             <div className="text-4xl font-bold text-basketball-orange mb-2">4.9/5</div>
             <div className="text-gray-600 font-lato">Average Rating</div>
           </div>

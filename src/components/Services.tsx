@@ -61,7 +61,7 @@ const Services: React.FC = () => {
             Training
             <span className="text-basketball-orange"> Services</span>
           </h2>
-          <p className="text-lg text-gray-600 font-lato max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 font-lato max-w-2xl mx-auto animate-slide-up animate-stagger-1">
             Professional training programs designed to maximize your potential and accelerate development.
           </p>
         </div>
@@ -71,16 +71,16 @@ const Services: React.FC = () => {
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-slide-up"
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-scale-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Icon */}
-              <div className="text-4xl mb-4 text-center">
+              <div className="text-4xl mb-4 text-center transform group-hover:scale-110 transition-transform duration-300">
                 {service.icon}
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold font-inter text-black mb-3 text-center">
+              <h3 className="text-xl font-bold font-inter text-black mb-3 text-center group-hover:text-basketball-orange transition-colors duration-300">
                 {service.title}
               </h3>
 
@@ -99,7 +99,7 @@ const Services: React.FC = () => {
               {/* Book Now Button */}
               <button
                 onClick={scrollToBooking}
-                className="w-full btn-primary text-sm py-2"
+                className="w-full btn-primary text-sm py-2 transform group-hover:scale-105 transition-all duration-300"
               >
                 Book Now
               </button>
@@ -109,12 +109,12 @@ const Services: React.FC = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16 animate-fade-in">
-          <p className="text-lg text-gray-600 mb-6 font-lato">
+          <p className="text-lg text-gray-600 mb-6 font-lato animate-slide-up animate-stagger-1">
             Not sure which option is right for you?
           </p>
           <button
             onClick={scrollToBooking}
-            className="btn-secondary border-basketball-orange text-basketball-orange hover:bg-basketball-orange hover:text-white"
+            className="btn-secondary border-basketball-orange text-basketball-orange hover:bg-basketball-orange hover:text-white animate-scale-in animate-stagger-2"
           >
             Schedule a Consultation
           </button>

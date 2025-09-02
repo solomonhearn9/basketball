@@ -84,7 +84,7 @@ const Booking: React.FC = () => {
             Book Your
             <span className="text-basketball-orange"> Session</span>
           </h2>
-          <p className="text-lg text-gray-600 font-lato max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 font-lato max-w-2xl mx-auto animate-slide-up animate-stagger-1">
             Ready to elevate your game? Book a training session and start your journey.
           </p>
         </div>

@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
       <div className="container-max section-padding">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 animate-fade-in">
             <div className="flex items-center space-x-3 mb-6">
               <img 
                 src="/logo.png" 
@@ -90,11 +90,11 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="animate-slide-in-left">
             <h3 className="text-xl font-bold font-inter mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.id}>
+              {quickLinks.map((link, index) => (
+                <li key={link.id} className={`animate-slide-up animate-stagger-${index + 1}`}>
                   <button
                     onClick={() => scrollToSection(link.id)}
                     className="text-gray-300 hover:text-basketball-orange transition-colors duration-300 font-lato"
@@ -107,22 +107,20 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Social & CTA */}
-          <div>
+          <div className="animate-slide-in-right">
             <h3 className="text-xl font-bold font-inter mb-6">Follow Us</h3>
             <div className="flex space-x-4 mb-8">
-              {socialLinks.map((social) => (
+              {socialLinks.map((social, index) => (
                 <a
                   key={social.name}
                   href={social.url}
-                  className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-basketball-orange transition-colors duration-300"
+                  className={`w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-basketball-orange transition-all duration-300 hover:scale-110 animate-scale-in animate-stagger-${index + 1}`}
                   aria-label={social.name}
                 >
                   {social.icon}
                 </a>
               ))}
             </div>
-
-
           </div>
         </div>
       </div>

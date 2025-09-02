@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
         const bookingSection = document.getElementById('booking');
         if (bookingSection) {
           bookingSection.scrollIntoView({ 
-            behavior: 'instant',
+            behavior: 'auto',
             block: 'start'
           });
         }
