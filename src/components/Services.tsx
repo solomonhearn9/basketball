@@ -16,7 +16,7 @@ const Services: React.FC = () => {
       title: '1-on-1 Training',
       description: 'Personalized training sessions tailored to your specific needs and goals.',
       icon: '🎯',
-      price: '$120/session',
+      price: '$60/session',
       features: ['Individual attention', 'Custom workout plans', 'Video analysis', 'Progress tracking']
     },
     {
@@ -24,7 +24,7 @@ const Services: React.FC = () => {
       title: 'Group Sessions',
       description: 'Train with other players in small groups for competitive development.',
       icon: '👥',
-      price: '$60/session',
+      price: '$30/session',
       features: ['Small groups (4-6 players)', 'Competitive drills', 'Team building', 'Peer motivation']
     },
     {
@@ -32,7 +32,7 @@ const Services: React.FC = () => {
       title: 'Shooting Clinics',
       description: 'Intensive shooting workshops focusing on form, accuracy, and consistency.',
       icon: '🏀',
-      price: '$80/session',
+      price: '$40/session',
       features: ['Form correction', 'Shot mechanics', 'Game situations', 'Mental approach']
     },
     {
@@ -40,7 +40,7 @@ const Services: React.FC = () => {
       title: 'Virtual Coaching',
       description: 'Remote training sessions with video analysis and personalized feedback.',
       icon: '💻',
-      price: '$90/session',
+      price: '$45/session',
       features: ['Video analysis', 'Remote guidance', 'Flexible scheduling', 'Recorded sessions']
     }
   ];

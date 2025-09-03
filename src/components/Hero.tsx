@@ -145,8 +145,8 @@ const Hero: React.FC = () => {
           preload="auto"
           webkit-playsinline="true"
         >
-          <source src="/media/videos/hero.webm" type="video/webm" />
-          <source src="/media/videos/agency-hero.mp4" type="video/mp4" />
+          <source src="/media/videos/intro-vid.webm" type="video/webm" />
+          <source src="/media/videos/introvid.mp4" type="video/mp4" />
           {/* Fallback image for browsers that don't support video */}
           <div className="w-full h-full bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
             <div className="text-white text-center">
