@@ -338,21 +338,30 @@ const Booking: React.FC = () => {
                   </h3>
                   <p className="mb-6 font-lato">
                     Payment is processed securely after booking confirmation. 
-                    We accept all major credit cards and PayPal.
+                    We accept Apple Pay, Visa, and PayPal.
                   </p>
                   <div className="flex items-center space-x-4">
-                    <div className="flex space-x-2">
-                      <div className="w-8 h-6 bg-white rounded flex items-center justify-center">
-                        <span className="text-xs font-bold text-blue-600">VISA</span>
+                    <div className="flex space-x-3">
+                      {/* Apple Pay */}
+                      <div className="w-12 h-8 bg-black rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">🍎 Pay</span>
                       </div>
-                      <div className="w-8 h-6 bg-white rounded flex items-center justify-center">
-                        <span className="text-xs font-bold text-red-600">MC</span>
+                      
+                      {/* Visa */}
+                      <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                        <svg className="w-8 h-5" viewBox="0 0 24 24" fill="#1A1F71">
+                          <path d="M9.5 6.5h5v11h-5zM8.5 6.5H3.5v11h5zM20.5 6.5h-5v11h5zM15.5 6.5h-1v11h1z"/>
+                          <path d="M8.5 6.5c0-1.1-.9-2-2-2H3.5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2V6.5z"/>
+                          <path d="M20.5 6.5c0-1.1-.9-2-2-2h-3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2V6.5z"/>
+                          <text x="12" y="14" textAnchor="middle" fontSize="8" fill="#1A1F71" fontWeight="bold">VISA</text>
+                        </svg>
                       </div>
-                      <div className="w-8 h-6 bg-white rounded flex items-center justify-center">
-                        <span className="text-xs font-bold text-blue-800">AMEX</span>
+                      
+                      {/* PayPal */}
+                      <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                        <span className="text-blue-600 text-xs font-bold">PayPal</span>
                       </div>
                     </div>
-                    <span className="text-sm opacity-90">+ PayPal</span>
                   </div>
                 </div>
               </div>

@@ -97,3 +97,4 @@ export const staggerItem = {
     transition: { duration: 0.5, ease: "easeOut" }
   }
 };
+

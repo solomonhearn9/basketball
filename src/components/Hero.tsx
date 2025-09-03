@@ -1,8 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Hero: React.FC = () => {
   const [isArrowClicked, setIsArrowClicked] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      // Ensure video plays automatically
+      const playVideo = async () => {
+        try {
+          await video.play();
+        } catch (error) {
+          console.log('Autoplay prevented:', error);
+          // If autoplay fails, try again after user interaction
+          const handleUserInteraction = () => {
+            video.play().catch(console.error);
+            document.removeEventListener('click', handleUserInteraction);
+            document.removeEventListener('touchstart', handleUserInteraction);
+          };
+          document.addEventListener('click', handleUserInteraction);
+          document.addEventListener('touchstart', handleUserInteraction);
+        }
+      };
+      
+      // Handle video loading errors
+      const handleError = () => {
+        console.error('Video failed to load');
+        // Could show a fallback image or message here
+      };
+      
+      // Handle video load events
+      const handleLoadedData = () => {
+        playVideo();
+      };
+      
+      // Add event listeners
+      video.addEventListener('error', handleError);
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('canplay', playVideo, { once: true });
+      
+      // Play immediately if video is already loaded
+      if (video.readyState >= 3) {
+        playVideo();
+      }
+      
+      // Cleanup function
+      return () => {
+        video.removeEventListener('error', handleError);
+        video.removeEventListener('loadeddata', handleLoadedData);
+      };
+    }
+  }, []);
 
   const handleArrowClick = () => {
     setIsArrowClicked(true);
@@ -86,11 +136,14 @@ const Hero: React.FC = () => {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
+          ref={videoRef}
           className="w-full h-full object-cover"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
+          webkit-playsinline="true"
         >
           <source src="/media/videos/hero.webm" type="video/webm" />
           <source src="/media/videos/agency-hero.mp4" type="video/mp4" />

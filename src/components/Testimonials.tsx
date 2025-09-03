@@ -57,6 +57,7 @@ const Testimonials: React.FC = () => {
     {
       id: '5',
       name: 'Eli Manning',
+      
       position: 'QB, NFL HOF',
       image: '/media/photos/download-1.jpg',
       quote: 'I went from being a bench player to starting center. The strength and conditioning program made all the difference.',
