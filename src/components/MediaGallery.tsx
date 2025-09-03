@@ -17,7 +17,7 @@ const MediaGallery: React.FC = () => {
   const players: Player[] = [
     {
       id: '1',
-      name: 'Marcus Johnson',
+      name: 'Aja Wilson',
       photo: '/media/photos/aja.png',
       position: 'Point Guard',
       bio: 'Marcus is a dynamic point guard with exceptional court vision and leadership skills. Through our training sessions, he has developed into a confident floor general who can control the tempo of any game.',
@@ -26,10 +26,10 @@ const MediaGallery: React.FC = () => {
     },
     {
       id: '2',
-      name: 'Sarah Chen',
+      name: 'Klay Thompson ',
       photo: '/media/photos/klay.png',
       position: 'Shooting Guard',
-      bio: 'Sarah is a sharpshooter with incredible work ethic. Her dedication to perfecting her shooting form has made her one of the most reliable three-point shooters in her conference.',
+      bio: 'Klay is a sharpshooter with incredible work ethic. His dedication to perfecting his shooting form has made him one of the most reliable three-point shooters of all time.',
       achievements: ['3-Point Champion', 'Academic All-American', 'Team MVP'],
       trainingFocus: 'Shooting mechanics, footwork, mental game'
     },

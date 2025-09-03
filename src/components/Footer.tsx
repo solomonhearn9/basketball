@@ -60,9 +60,9 @@ const Footer: React.FC = () => {
               <img 
                 src="/logo.png" 
                 alt="Bridge Basketball Logo" 
-                className="h-12 w-auto"
+                className="h-4 md:h-12 w-auto"
               />
-              <span className="text-2xl font-bold font-inter">Bridge Basketball</span>
+              <span className="text-sm md:text-2xl font-bold font-inter">Bridge Basketball</span>
             </div>
 
             {/* Contact Info */}

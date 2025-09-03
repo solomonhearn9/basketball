@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface BookingForm {
   name: string;
@@ -23,6 +23,19 @@ const Booking: React.FC = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Check for pre-selected service from Services section
+  useEffect(() => {
+    const selectedService = sessionStorage.getItem('selectedService');
+    if (selectedService) {
+      setFormData(prev => ({
+        ...prev,
+        serviceType: selectedService
+      }));
+      // Clear the stored service after using it
+      sessionStorage.removeItem('selectedService');
+    }
+  }, []); // Empty dependency array ensures this only runs on mount
 
   const serviceTypes = [
     { id: '1-on-1', name: '1-on-1 Training', price: '$120', duration: '60 min' },
@@ -76,7 +89,7 @@ const Booking: React.FC = () => {
   const selectedService = serviceTypes.find(service => service.id === formData.serviceType);
 
   return (
-    <section id="booking" className="section-padding bg-light-gray">
+    <section id="booking" className="section-padding bg-light-gray min-h-screen">
       <div className="container-max">
         {/* Section Header */}
         <div className="text-center mb-12 animate-fade-in">
@@ -100,6 +113,18 @@ const Booking: React.FC = () => {
                     <h3 className="text-2xl font-bold font-inter text-black mb-6">
                       Choose Your Training
                     </h3>
+                    {formData.serviceType && (
+                      <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
+                        <div className="flex items-center">
+                          <svg className="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <p className="text-green-800 font-medium">
+                            Service pre-selected from Services section
+                          </p>
+                        </div>
+                      </div>
+                    )}
                     <div className="space-y-4">
                       {serviceTypes.map((service) => (
                         <div
@@ -138,7 +163,7 @@ const Booking: React.FC = () => {
 
                 {/* Step 2: Personal Information */}
                 {currentStep === 2 && (
-                  <div className="animate-fade-in">
+                  <div className="animate-fade-in visible">
                     <h3 className="text-2xl font-bold font-inter text-black mb-6">
                       Your Information
                     </h3>
@@ -208,7 +233,7 @@ const Booking: React.FC = () => {
 
                 {/* Step 3: Schedule */}
                 {currentStep === 3 && (
-                  <div className="animate-fade-in">
+                  <div className="animate-fade-in visible">
                     <h3 className="text-2xl font-bold font-inter text-black mb-6">
                       Schedule Your Session
                     </h3>
@@ -281,7 +306,7 @@ const Booking: React.FC = () => {
 
             {/* Booking Summary - Only show when a service is selected */}
             {selectedService && (
-              <div className="animate-slide-in-right">
+              <div className="animate-slide-in-right visible">
                 <div className="bg-white rounded-xl p-6 shadow-md mb-6">
                   <h3 className="text-2xl font-bold font-inter text-black mb-6">
                     Booking Summary

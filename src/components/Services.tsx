@@ -45,10 +45,19 @@ const Services: React.FC = () => {
     }
   ];
 
-  const scrollToBooking = () => {
+  const scrollToBooking = (serviceId?: string) => {
     const bookingSection = document.getElementById('booking');
     if (bookingSection) {
-      bookingSection.scrollIntoView({ behavior: 'smooth' });
+      // Add a small delay to ensure smooth scrolling
+      setTimeout(() => {
+        bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // If a service was selected, we could potentially pre-select it in the booking form
+        if (serviceId) {
+          // Store the selected service in sessionStorage for the booking component to use
+          sessionStorage.setItem('selectedService', serviceId);
+        }
+      }, 100);
     }
   };
 
@@ -98,7 +107,7 @@ const Services: React.FC = () => {
 
               {/* Book Now Button */}
               <button
-                onClick={scrollToBooking}
+                onClick={() => scrollToBooking(service.id)}
                 className="w-full btn-primary text-sm py-2 transform group-hover:scale-105 transition-all duration-300"
               >
                 Book Now
@@ -113,7 +122,7 @@ const Services: React.FC = () => {
             Not sure which option is right for you?
           </p>
           <button
-            onClick={scrollToBooking}
+            onClick={() => scrollToBooking()}
             className="btn-secondary border-basketball-orange text-basketball-orange hover:bg-basketball-orange hover:text-white animate-scale-in animate-stagger-2"
           >
             Schedule a Consultation
